@@ -4,6 +4,9 @@ Item Archive
 https://www.testdome.com/tests/mysql-online-test/108
 
 
+MySQL Triggers Reference: https://www.mysqltutorial.org/mysql-triggers/
+
+
 Fill in the blanks so that the trigger item_delete inserts name from item table to the item_archive table, after a row from the table item is deleted.
 
 CREATE TABLE item (
