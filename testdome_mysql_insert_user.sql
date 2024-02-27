@@ -24,7 +24,42 @@ Finish the insertUser procedure so that it inserts a user, with these requiremen
 • id is auto incremented.
 • email is equal to the email parameter.
 • userTypeld is the id of the userTypes row whose type attribute is equal to the type parameter.
+
+
+-- Suggested testing environment: 
+-- https://www.db-fiddle.com/ with MySQL version set to 8
+
+-- Example case create statement:
+CREATE TABLE userTypes (
+    id INTEGER NOT NULL PRIMARY KEY,
+    type VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE users (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(50) NOT NULL,
+    userTypeId INTEGER NOT NULL,
+    FOREIGN KEY (userTypeId) REFERENCES userTypes(id)
+);
+  
+INSERT INTO userTypes (id, type) VALUES (0, 'free');
+INSERT INTO userTypes (id, type) VALUES (1, 'paid');
+
+
+
+-- Example case:
+CALL insertUser('free', 'john.doe@company.com');
+CALL insertUser('paid', 'jane.doe@company.com');
+SELECT * FROM users;
+
+-- Expected output (in any order):
+-- id    email                   userTypeId
+-- ------------------------------------------
+-- 1     john.doe@company.com    0
+-- 2     jane.doe@company.com    1
 */
+
+
 
 DELIMITER //
 CREATE PROCEDURE insertUser(
@@ -56,61 +91,3 @@ sp: BEGIN
     */
 END//
 DELIMITER ;
-
-
-
-
-
-
--- Suggested testing environment: 
--- https://www.db-fiddle.com/ with MySQL version set to 8
-
--- Example case create statement:
-CREATE TABLE userTypes (
-    id INTEGER NOT NULL PRIMARY KEY,
-    type VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE users (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(50) NOT NULL,
-    userTypeId INTEGER NOT NULL,
-    FOREIGN KEY (userTypeId) REFERENCES userTypes(id)
-);
-  
-INSERT INTO userTypes (id, type) VALUES (0, 'free');
-INSERT INTO userTypes (id, type) VALUES (1, 'paid');
-
-DELIMITER //
-CREATE PROCEDURE insertUser(
-    IN type VARCHAR(50),
-    IN email VARCHAR(50)
-)
-BEGIN
-    -- Write your code here:
-sp: BEGIN
-    DECLARE userTypeId INT;
-
-    IF type = 'free' THEN
-    	SET userTypeId = 0;
-    ELSEIF type = 'paid' THEN
-    	SET userTypeId = 1;
-    ELSE
-    	LEAVE sp;
-    END IF;
-    
-    INSERT INTO users (email, userTypeId) VALUES (email, userTypeId);
-END
-END//
-DELIMITER ;
-
--- Example case:
-CALL insertUser('free', 'john.doe@company.com');
-CALL insertUser('paid', 'jane.doe@company.com');
-SELECT * FROM users;
-
--- Expected output (in any order):
--- id    email                   userTypeId
--- ------------------------------------------
--- 1     john.doe@company.com    0
--- 2     jane.doe@company.com    1
