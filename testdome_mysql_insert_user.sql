@@ -47,6 +47,19 @@ INSERT INTO userTypes (id, type) VALUES (1, 'paid');
 
 
 
+-- STARTING CODE
+DELIMITER //
+CREATE PROCEDURE insertUser(
+    IN type VARCHAR(50),
+    IN email VARCHAR(50)
+)
+BEGIN
+    -- Write your code here
+END//
+DELIMITER ;
+
+
+
 -- Example case:
 CALL insertUser('free', 'john.doe@company.com');
 CALL insertUser('paid', 'jane.doe@company.com');
