@@ -68,7 +68,8 @@ Expected output
 2
 */
 
-// EXAMPLE 4 - 
+
+// EXAMPLE 4 - PASSED
 $mysize = 2;
 $myvect = '1 2';
 $mywindowsize = 1;
@@ -77,7 +78,6 @@ Expected output
 2
 1 2
 */
-
 
 // EXAMPLE 1 - PASSED
 $mysize = 4;
@@ -96,12 +96,12 @@ Expected output
 $size = trim($mysize);
 
 // Read array elements
-#$vect = array_map('intval', explode(' ', trim(fgets(STDIN))));
 $vect = array_map('intval', explode(' ', trim($myvect)));
+#$vect = array_map('intval', explode(' ', trim(fgets(STDIN))));
 
 // Read window size
-#$windowSize = trim(fgets(STDIN));
 $windowSize = trim($mywindowsize);
+#$windowSize = trim(fgets(STDIN));
 
 // Calculate the moving averages
 list($n, $result) = calc_mov_avg($size, $vect, $windowSize);
