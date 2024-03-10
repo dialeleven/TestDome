@@ -13,17 +13,17 @@ function calc_mov_avg($size, $vect, $windowSize) {
     $vect_arr_to_use = array_slice($vect, 0, $windowSize - 1);
 
     
-    //$n = $size + $windowSize - 1;
+    $n = $size + $windowSize - 1;
     foreach ($vect_arr_to_use as $val)
         $total += $val;
 
     // round up average of vect total based on windowsize (e.g. vect 1 2 3 4 and windowSize: 2, we use vect 1 2 to 
     // get the total and divide by windowSize 2 to get the avg so (1+2)/2 and then round up using ceil())
-    $n = ceil($total / ($windowSize - 1));
+    //$n = ceil($total / ($windowSize - 1));
 
     #print_r($vect);
     #print('$size: ' . $size . ", \$windowSize: $windowSize\n");
-    #print('$n: ' . $n . "\n");
+    print('$n: ' . $n . "\n");
 
     $result = [];
     $sum = 0;
