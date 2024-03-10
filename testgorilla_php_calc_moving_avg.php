@@ -39,34 +39,13 @@ function calc_mov_avg($size, $vect, $windowSize) {
     // Calculate the moving averages for the remaining windows
     for ($i = $windowSize; $i < $size; $i++) {
         $sum = $sum - $vect[$i - $windowSize] + $vect[$i];
-        $result[] = $sum / $windowSize;
+        $result[] = ceil($sum / $windowSize); // round up
     }
 
     #print_r($result);
 
     return [$n, $result];
 }
-
-
-// EXAMPLE 2 - 
-$mysize = 4;
-$myvect = '1 2 3 4';
-$mywindowsize = 2;
-/*
-Expected output
-3
-2 3 4
-*/
-
-// EXAMPLE 3 - 
-$mysize = 3;
-$myvect = '1 2 3';
-$mywindowsize = 3;
-/*
-Expected output
-1
-2
-*/
 
 
 // EXAMPLE 4 - PASSED
@@ -90,6 +69,28 @@ Expected output
 */
 
 
+// EXAMPLE 3 - 
+$mysize = 3;
+$myvect = '1 2 3';
+$mywindowsize = 3;
+/*
+Expected output
+1
+2
+*/
+
+
+
+// EXAMPLE 2 - 
+$mysize = 4;
+$myvect = '1 2 3 4';
+$mywindowsize = 2;
+/*
+Expected output
+3
+2 3 4
+*/
+
 
 // Read size of the input array
 #$size = trim(fgets(STDIN));
@@ -107,8 +108,8 @@ $windowSize = trim($mywindowsize);
 list($n, $result) = calc_mov_avg($size, $vect, $windowSize);
 
 // Print the size of the result array
-echo $n . PHP_EOL;
-#echo 'RESULT ARR: ' . $n . PHP_EOL;
+#echo $n . PHP_EOL;
+echo 'RESULT ARR: ' . $n . PHP_EOL;
 
 // Print the result array without a space after the last element
 echo implode(' ', $result) . PHP_EOL;
