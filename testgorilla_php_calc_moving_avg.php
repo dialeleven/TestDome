@@ -8,33 +8,19 @@ function calc_mov_avg($size, $vect, $windowSize) {
         return [$size, $vect];
     }
 
-    $total = 0;
-    
-    $vect_arr_to_use = array_slice($vect, 0, $windowSize - 1);
-
-    
-    $n = $size + $windowSize - 1;
-    foreach ($vect_arr_to_use as $val)
-        $total += $val;
-
-    // round up average of vect total based on windowsize (e.g. vect 1 2 3 4 and windowSize: 2, we use vect 1 2 to 
-    // get the total and divide by windowSize 2 to get the avg so (1+2)/2 and then round up using ceil())
-    $n = ceil($total / ($windowSize - 1));
-
-    #print_r($vect);
-    #print('$size: ' . $size . ", \$windowSize: $windowSize\n");
-    print('$n: ' . $n . "\n");
-
     $result = [];
-    $sum = 0;
-
+    $sum  = 0;
+    
     // Calculate the initial sum of the first window
     for ($i = 0; $i < $windowSize; $i++) {
         $sum += $vect[$i];
     }
 
     // Set the first result
-    $result[] = round($sum / $windowSize);
+    $result[] = ceil($sum / $windowSize);
+    
+    print('$result: ');
+    print_r($result);
 
     // Calculate the moving averages for the remaining windows
     for ($i = $windowSize; $i < $size; $i++) {
@@ -44,19 +30,9 @@ function calc_mov_avg($size, $vect, $windowSize) {
 
     #print_r($result);
 
-    return [$n, $result];
+    return [count($result), $result];
 }
 
-
-// EXAMPLE 4 - PASSED
-$mysize = 2;
-$myvect = '1 2';
-$mywindowsize = 1;
-/*
-Expected output
-2
-1 2
-*/
 
 // EXAMPLE 1 - PASSED
 $mysize = 4;
@@ -68,8 +44,7 @@ Expected output
 2 3
 */
 
-
-// EXAMPLE 3 - 
+// EXAMPLE 3 - PASSED
 $mysize = 3;
 $myvect = '1 2 3';
 $mywindowsize = 3;
@@ -80,8 +55,7 @@ Expected output
 */
 
 
-
-// EXAMPLE 2 - 
+// EXAMPLE 2 - PASSED
 $mysize = 4;
 $myvect = '1 2 3 4';
 $mywindowsize = 2;
@@ -89,6 +63,16 @@ $mywindowsize = 2;
 Expected output
 3
 2 3 4
+*/
+
+// EXAMPLE 4 - PASSED
+$mysize = 2;
+$myvect = '1 2';
+$mywindowsize = 1;
+/*
+Expected output
+2
+1 2
 */
 
 
@@ -109,7 +93,7 @@ list($n, $result) = calc_mov_avg($size, $vect, $windowSize);
 
 // Print the size of the result array
 #echo $n . PHP_EOL;
-echo 'RESULT ARR: ' . $n . PHP_EOL;
+echo "<pre>RESULT ARR:\n" . $n . PHP_EOL;
 
 // Print the result array without a space after the last element
 echo implode(' ', $result) . PHP_EOL;
