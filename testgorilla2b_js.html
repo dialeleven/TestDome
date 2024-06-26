@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TestGorilla JS Test</title>
+</head>
+<body>
+
+<script>
+// Mat__o
+const scores = [1, 2, 1];
+
+let player1_total = 0;
+let player2_total = 0;
+
+scores.forEach(score => {
+   console.log(score); // Log each score to the console
+   document.write(score);
+
+   if (score === 1) {
+      player1_total += 1;
+   } else {
+      player2_total += 1;
+   }
+});
+
+const winnerTotal = player1_total >= player2_total ? player1_total : player2_total;
+
+document.write(winnerTotal);
+</script>
+   
+</body>
+</html>
